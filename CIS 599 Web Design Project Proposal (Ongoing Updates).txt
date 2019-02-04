@@ -31,9 +31,16 @@ Hover over and show a short description of what this article is about. For examp
 Everything is on one page. http://annaellenberger.com/
 “Also like” feature. For example,  http://seanoconn.org/creative-destruction/
 Main focus point: Filter articles based on topics. For example, https://www.scotthyoung.com/blog/browse/
-JavaScript - Budget calculator    
-Express, Node.js - Weather app
-React - Image showing example
-Final project (hosted on AWS) - Personal blog with comment and real time chatting with authentication
 
-Test
+Vanilla JavaScript - Budget calculator (Feb 13th)   
+- add income 
+- add expenses 
+- percentage of expenses  
+
+Node.js - Note app and Weather app (Feb 27th)
+
+React - Image showing example (March 13th)
+
+Final project (MongoDB hosted on AWS) - Personal blog with comment and real time chatting with user authentication (May 1st) - Combine everything, MEAN stack, MERN stack, AWS, etc.
+
+
