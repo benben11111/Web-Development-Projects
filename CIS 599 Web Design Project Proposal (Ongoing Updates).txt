@@ -1,0 +1,37 @@
+﻿Independent Study Project Proposal
+The initial idea of this project is to develop a personal website or personal blog for myself to incorporate my experience in various fields and causes that I care about, including, but not limited to, my academic experience in America, culinary adventures, non-profit organizations like UN, the LGBT community, and the international students body. This website will be responsive and interactive so that it is user-friendly on various types of device. 
+Technologies that will potentially be used to implement this personal blog site are: HTML, CSS, JavaScript, NoSQL (MongoDB), Express.js, React, Redux, Node.js, WordPress, AWS, SQL, APIs, Google Analytics, and Postman. The project development method will be Agile with multiple iterations on the UI/UX component of the website. I will be mainly focused on the web design part of the project instead of the back-end development. Therefore, the back-end will be developed for the purpose of testing the basic functionalities of the website instead of making it algorithmically complex.
+        The following are the main components of the personal website. First, the website has a homepage with multiple components telling a story of my experience. Then, there is a blog page that has all my blogs on various topics, including food and restaurant reviews (foodie), international student, and LGBT. All my blogs are open to public comments, so there will be a comment component in each blog that I write. Third, there will be a contact page where visitors need to authenticate first and then send emails to me using the contact form. All websites including mine have an “about” page for an overview of the website containing my social media links. I want to start my own business as a consultant, so I will design a web page for my consulting website that will be linked into my homepage. This consulting website will be thematically lined up with my homepage with tailored areas of the consulting business needs. Furthermore, there will be a page for the LGBT community for international students who want to do language exchange programs here in the United States. Finally, an E-commerce website will be developed and integrated into my personal website, and it will be used to sell goods imported from China. 
+Aforementioned is all subject to changes as resources and timings may allow for more or fewer functionalities and components to be incorporated into this personal website.  Above all, the concentration of this project will be on the web design rather than the algorithms.
+Required features:
+Ask user to input email to get my most recent writing
+Put event on calendar: using Google calendar
+Meetup API for events around the city you live in 
+Contact form, blog, comments, one to two weeks of project
+Search bar on my page 
+Budget calculator on E-commerce page 
+Log in and sign out 
+Scrolling news
+
+
+From other personal websites:
+Register for event just like the Eventbrite
+Upcoming events 
+Combine this with the calendar 
+Home, About, Contact
+List of resources say for international students
+FAQs
+Newsletter sign up
+Contact form 
+Embedding links into messages 
+Search bar 
+Video in the background
+Live update people who subscribed to the newsletter and make it show up when new users search the website. For example, https://www.matthewbarby.com/
+Hover over and show a short description of what this article is about. For example, https://www.tastefullytash.com/
+Everything is on one page. http://annaellenberger.com/
+“Also like” feature. For example,  http://seanoconn.org/creative-destruction/
+Main focus point: Filter articles based on topics. For example, https://www.scotthyoung.com/blog/browse/
+JavaScript - Budget calculator    
+Express, Node.js - Weather app
+React - Image showing example
+Final project (hosted on AWS) - Personal blog with comment and real time chatting with authentication
