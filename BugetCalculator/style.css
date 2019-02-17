@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(https://images.unsplash.com/photo-1538356343135-65849f66b4a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1504&q=80);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.expense-description {
+    float: right;
+}
+
+h1 {
+    text-align: left;
+
+}
+
+h2 {
+    text-align: left;
+}
+
+.rightside {
+    float: right;
+}
+
+.clearfix {
+    content: " ";
+    clear: both;
+    display: table;
+}

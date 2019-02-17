@@ -32,20 +32,19 @@ Everything is on one page. http://annaellenberger.com/
 “Also like” feature. For example,  http://seanoconn.org/creative-destruction/
 Main focus point: Filter articles based on topics. For example, https://www.scotthyoung.com/blog/browse/
 
-Vanilla JavaScript - Budget calculator (Feb 13th)   
-- add income 
-- add expenses 
-- percentage of expenses  
+Vanilla JavaScript - Budget calculator (Feb 20th)   
+- add income with items listed 
+- add expenses with items listed
+- percentage of expenses over income
 
-Node.js - Note app and Weather app (Feb 27th)
-
-React - Image showing example (March 13th)
+Node.js - Note app and Weather app (By the end of Spring break)
+- npm familiarity
+- lodash
+- nodemon
+- get input from a user
+- Yargs
+- use two APIs to create dynamic weather app 
 
 Final project (MongoDB hosted on AWS) - Personal blog with comment and real time chatting with user authentication (May 1st) - Combine everything, MEAN stack, MERN stack, AWS, etc.
 
-Just to test!
-
-Hello
-Hi
-Hi
 
