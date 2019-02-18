@@ -3,12 +3,16 @@
     box-sizing: border-box;
 }
 
-body {
-    background-image: url(https://images.unsplash.com/photo-1538356343135-65849f66b4a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1504&q=80);
+.colorful-background {
+    background:
+        linear-gradient(red, transparent),
+        linear-gradient(to top left, lime, transparent),
+        linear-gradient(to top right, blue, transparent);
+    background-blend-mode: screen;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .expense-description {
@@ -33,3 +37,4 @@ h2 {
     clear: both;
     display: table;
 }
+
