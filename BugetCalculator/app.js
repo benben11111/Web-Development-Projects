@@ -1,5 +1,7 @@
 // Create a handler for the budget
 let budgetHandler = (() => {
+
+
     // Create a class for income 
     class Income {
         constructor(incomeID, incomeDetail, incomeAmount) {
@@ -25,7 +27,42 @@ let budgetHandler = (() => {
     // Create changeable variables for total income, total expenses, and available balance, and percentage of expense/income
     let totalIncome = 0;
     let totalExpenses = 0;
-    let availableBalance = totalIncome - totalExpenses;
+
+    let calculateTotal = function (type) {
+        if (type === 'income') {
+            // Calculate total income 
+                let total = 0;
+                income.forEach(current => total += current.incomeAmount);
+               // console.log(income);
+                return totalIncome = total;
+            
+        } else if (type === 'expense') {
+            // Calculate total expenses
+                let total = 0;
+                expense.forEach(current => total += current.expenseAmount);
+                return totalExpenses = total;
+            
+
+        }
+
+    }
+
+    // let calculateTotal = {
+    //     // Calculate total income
+    //     calculateTotalIncome: function(income){
+    //         let total = 0;
+    //         income.forEach(current => total += current.incomeAount);
+    //         totalIncome = total;
+    //     },
+    //     // Calculate total expenses
+    //     calculateTotalExpenses: function(expense){
+    //         let total = 0;
+    //         expense.forEach(current => total += current.expenseAount);
+    //         totalExpenses = total;
+    //     }
+    // }
+
+    let availableBalance = 0;
     let percentageIncomeSpent = (totalExpenses / totalIncome) * 100;
     return {
         addItem: function (type, detail, amount) {
@@ -56,9 +93,22 @@ let budgetHandler = (() => {
                 return newExpenseItem;
             }
         },
+        updateBudget: function () {
+            availableBalance = calculateTotal('income') - calculateTotal('expense');
+            return availableBalance;
+        },
+        getTotalIncome: function(){
+            return totalIncome;
+        },
+        getTotalExpenses: function(){
+            return totalExpenses;
+        },
         testing: function () {
-            console.log(income);
-            console.log(expense);
+            // console.log(income);
+            // console.log(expense);
+            console.log(totalIncome);
+            console.log(totalExpenses);
+            console.log(availableBalance);
         }
     }
 
@@ -75,7 +125,12 @@ let userInterfaceHandler = (() => {
         type: '.item-type',
         detail: '.detail',
         amount: '.amount',
-        addItemButton: '.add-item-button'
+        addItemButton: '.add-item-button',
+        listOfIncome: '.list-of-income',
+        listOfExpenses: '.list-of-expenses',
+        moneyIn: '.money-in',
+        moneyOut: '.money-out',
+        totalBalance: '.total-balance'
     };
 
     // Get user input value from UI
@@ -90,6 +145,54 @@ let userInterfaceHandler = (() => {
         // appController will be able to use the querySelectionOptions by making them public here
         getQuerySelectorOptions: () => {
             return querySelectorOptions;
+        },
+        // Update UI after adding a new item, either an income item or an expense item
+        addNewItemOnUI: (type, newItem) => {
+            // Insert HTML elements to update UI after adding each item
+            let htmlInsertion;
+            let updatedHTML;
+            let htmlElementToInsert;
+            if (type === 'income') {
+                htmlInsertion = '<div class="item clearfix" id="income-%incomeID%"><div class="item__description">%incomeDetail%</div><div class="right clearfix"><div class="item__value">%incomeAmount%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                // Replace changeable fields with user input values
+                updatedHTML = htmlInsertion.replace('%incomeID%', newItem.incomeID);
+                updatedHTML = updatedHTML.replace('%incomeDetail%', newItem.incomeDetail);
+                updatedHTML = updatedHTML.replace('%incomeAmount%', newItem.incomeAmount);
+                // Select the right HTML element 
+                htmlElementToInsert = querySelectorOptions.listOfIncome;
+                // Insert each newly added item at the end of the list but before the end of the income section
+                document.querySelector(htmlElementToInsert).insertAdjacentHTML('beforeend', updatedHTML);
+            } else if (type === 'expense') {
+                htmlInsertion = '<div class="item clearfix" id="expense-%expenseID%"><div class="item__description">%expenseDetail%</div><div class="right clearfix"><div class="item__value">%expenseAmount%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                // Replace changeable fields with user input values
+                updatedHTML = htmlInsertion.replace('%expenseID%', newItem.expenseID);
+                updatedHTML = updatedHTML.replace('%expenseDetail%', newItem.expenseDetail);
+                updatedHTML = updatedHTML.replace('%expenseAmount%', newItem.expenseAmount);
+                // Select the right HTML element 
+                htmlElementToInsert = querySelectorOptions.listOfExpenses;
+                // Insert each newly added item at the end of the list but before the end of the income section
+                document.querySelector(htmlElementToInsert).insertAdjacentHTML('beforeend', updatedHTML);
+            }
+        },
+        // Reset user input to empty or 0 after adding an item
+        resetUserInput: () => {
+            let userInputFields = document.querySelectorAll(querySelectorOptions.detail + ',' + querySelectorOptions.amount);
+            let userInputFieldsArray = Array.from(userInputFields);
+            userInputFieldsArray.forEach(current => current.value = '');
+            // Refocus on the item detail to start entering the next item
+            userInputFieldsArray[0].focus();
+        },
+        // Update money in, money out, and total balance on UI
+        updateBalanceOnUI: () => {
+            let totalIncome = budgetHandler.getTotalIncome();
+            let totalExpenses = budgetHandler.getTotalExpenses();
+            let totalBalance = budgetHandler.updateBudget();
+            // Update total income
+            document.querySelector(querySelectorOptions.moneyIn).textContent = totalIncome;
+            // Update total expenses 
+            document.querySelector(querySelectorOptions.moneyOut).textContent = totalExpenses;
+            // Update total available budget
+            document.querySelector(querySelectorOptions.totalBalance).textContent = totalBalance;
         }
     };
 
@@ -106,15 +209,18 @@ let appController = ((budgetData, ui) => {
         // Step 2: add user input or the new item to the budget
         // Only add if all input fields are filled out, and amount should be great than 0 
         if (userInput.itemAmount > 0 && userInput.itemDetail !== "" && !isNaN(userInput.itemAmount)) {
-            newItemAdded = budgetHandler.addItem(userInput.itemType, userInput.itemDetail, userInput.itemAmount);
+            newItemAdded = budgetData.addItem(userInput.itemType, userInput.itemDetail, userInput.itemAmount);
             // Step 3: update the newly added item on UI
-
-            // Step 4: clear all input fields for the next new item
+            ui.addNewItemOnUI(userInput.itemType, newItemAdded);
+            // Step 4: reset all user input fields for the next new item
+            ui.resetUserInput();
             // Step 5: calculate and update the budget based on the new item added
-            // Step 6: calculate and update the percentage of expense/income 
-
+            //budgetHandler.calculateTotal('income');
+            budgetData.updateBudget();
+            // Step 6: update balance on UI
+            ui.updateBalanceOnUI();
+            // Step 7: calculate and update the percentage of expense/income 
         }
-
     };
     return {
         // Initialize the app when user start using the app
