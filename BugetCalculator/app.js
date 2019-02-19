@@ -88,12 +88,24 @@ let budgetHandler = (() => {
         getTotalExpenses: function(){
             return totalExpenses;
         },
+        deleteItemInDatabase: (type, idToDelete) => {
+            if(type === 'income'){
+                let incomeIDs = income.map(current => current.incomeID);
+                let indexToDelete = incomeIDs.indexOf(idToDelete);
+                income.splice(indexToDelete, 1);
+                
+            } else if(type === 'expense'){
+                let expenseIDs = expense.map(current => current.expenseID);
+                let indexToDelete = expenseIDs.indexOf(idToDelete);
+                expense.splice(indexToDelete, 1);
+            }
+        },
         testing: function () {
-            // console.log(income);
-            // console.log(expense);
-            console.log(totalIncome);
-            console.log(totalExpenses);
-            console.log(availableBalance);
+            console.log(income);
+            //console.log(expense);
+            //console.log(totalIncome);
+            //console.log(totalExpenses);
+            //console.log(availableBalance);
         }
     }
 
@@ -115,7 +127,8 @@ let userInterfaceHandler = (() => {
         listOfExpenses: '.list-of-expenses',
         moneyIn: '.money-in',
         moneyOut: '.money-out',
-        totalBalance: '.total-balance'
+        totalBalance: '.total-balance',
+        details: '.details'
     };
 
     // Get user input value from UI
@@ -207,23 +220,48 @@ let appController = ((budgetData, ui) => {
             // Step 7: calculate and update the percentage of expense/income 
         }
     };
+    // Create a function to delete an item whenever user wants
+    let deleteItem = (deleteEvent) => {
+        // Each item has an unique item ID, so delete each item by deleting its ID
+        // Implement this function using event delegation by finding the root node
+        const itemID = deleteEvent.target.parentNode.parentNode.parentNode.parentNode.id;
+        // Parse the retrieved item ID 
+        const transformedItemID = itemID.split('-');
+        // Parse the ID string into a number 
+        transformedItemID[1] = parseInt(transformedItemID[1]);
+        const [type, itemIdToDelete] = transformedItemID;
+        //console.log(type);
+        //console.log(itemIdToDelete);
+        // Delete the item in the database 
+        budgetData.deleteItemInDatabase(type, itemIdToDelete);
+        // Delete the item on UI
+
+        // Update total income, total expenses, and total balance 
+        
+        
+        
+    };
+
     return {
         // Initialize the app when user start using the app
         init: () => {
             // Get all possible query selector options by calling the function in UI handler
             let selectorOptions = userInterfaceHandler.getQuerySelectorOptions();
-
             // There are two possible situations when items should be added: 1. when user clicks the add button.
             // 2. when user hit the return or enter key
 
             // Handle when user clicks the add button
             document.querySelector(selectorOptions.addItemButton).addEventListener('click', addNewItem);
 
+            // Handle when user wants to delete an item
+            document.querySelector(selectorOptions.details).addEventListener('click', deleteItem);
+
             // Handle when user hit the enter or return key
             document.addEventListener('keypress', e => {
                 e.keyCode === 13 ? addNewItem() : e.keyCode = e.keyCode;
             });
-        }
+        },
+        
     }
 
 })(budgetHandler, userInterfaceHandler);
