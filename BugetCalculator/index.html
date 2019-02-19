@@ -4,42 +4,40 @@
 <head>
     <title>Budget Calculator</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 
 <body class="colorful-background">
-    <div class="">
-        <div class="summary">
+
+    <div class="container1">
+        <div class="summary-container">
             <h1>BUDGET FOR YOUR FUTURE!</h1>
             <div class="summary-income clearfix">
-                <div>
-                    <h2 classs="summary-income-text">Money In</h2>
-                    <div class="money-in">$100,000</div>
-                </div>
+                <h2 class="summary-income-text">Money In</h2>
+                <div class="money-in">$100,000</div>
             </div>
             <div class="summary-expenses clearfix">
-                <div>
-                    <h2 classs="summary-expenses-text">Money Out</h2>
-                    <div class="money-out">$100,000</div>
-                </div>
+                <h2 class="summary-expenses-text">Money Out</h2>
+                <div class="money-out">$100,000</div>
             </div>
             <div class="summary-total-balance clearfix">
-                <h2>Total Balance</h2>
+                <h2 class="summary-total-balance-text">Total Balance</h2>
                 <div class="total-balance">0</div>
             </div>
         </div>
     </div>
 
-    <div class="add-items">
-        <div>
-            <select class="item-type">
-                <option value="income">Income</option>
+    <div class="container2">
+        <div class="container3">
+            <select class="item-type clearfix">
+                <option value="income" selected>Income</option>
                 <option value="expense">Expense</option>
             </select>
         </div>
-        <div class="item-detail">
+        <div class="item-detail clearfix">
             <input type="text" placeholder="Describe the item" class="detail">
         </div>
-        <div class="item-value">
+        <div class="item-value clearfix">
             <input type="number" placeholder="Amount" class="amount">
         </div>
         <button class="add-item-button">Add Item</button>
@@ -48,8 +46,11 @@
 
     <div class="details">
         <div class="list-of-income">
-            <h3>Income</h3>
-            <!-- <div class="item clearfix" id="income-0">
+            <h3 class="income-list">Income</h3>
+
+
+            
+                <div class="item clearfix" id="income-0">
                 <div class="item__description">Salary</div>
                 <div class="right clearfix">
                     <div class="item__value">+ 2,100.00</div>
@@ -59,20 +60,31 @@
                         </button>
                     </div>
                 </div>
-            </div> -->
+            </div>
+           
+            
+
+
+
         </div>
         <div class="list-of-expenses">
-            <h3>Expenses</h3>
-            <!-- <div class="item clearfix" id="expense-0">
+            <h3 class="expenses-list">Expenses</h3>
+
+
+<!--         
+           <div class="item clearfix" id="expense-0">
                 <div class="item__description">Apartment rent</div>
                 <div class="right clearfix">
                     <div class="item__value">- 900.00</div>
-                    <div class="item__percentage">21%</div>
+                      <div class="item__percentage">21%</div>  
                     <div class="item__delete">
                         <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button>
                     </div>
                 </div>
             </div> -->
+
+
+
         </div>
     </div>
     <script type="text/javascript" src="app.js"></script>

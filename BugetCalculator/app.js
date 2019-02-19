@@ -47,21 +47,6 @@ let budgetHandler = (() => {
 
     }
 
-    // let calculateTotal = {
-    //     // Calculate total income
-    //     calculateTotalIncome: function(income){
-    //         let total = 0;
-    //         income.forEach(current => total += current.incomeAount);
-    //         totalIncome = total;
-    //     },
-    //     // Calculate total expenses
-    //     calculateTotalExpenses: function(expense){
-    //         let total = 0;
-    //         expense.forEach(current => total += current.expenseAount);
-    //         totalExpenses = total;
-    //     }
-    // }
-
     let availableBalance = 0;
     let percentageIncomeSpent = (totalExpenses / totalIncome) * 100;
     return {
@@ -163,7 +148,7 @@ let userInterfaceHandler = (() => {
                 // Insert each newly added item at the end of the list but before the end of the income section
                 document.querySelector(htmlElementToInsert).insertAdjacentHTML('beforeend', updatedHTML);
             } else if (type === 'expense') {
-                htmlInsertion = '<div class="item clearfix" id="expense-%expenseID%"><div class="item__description">%expenseDetail%</div><div class="right clearfix"><div class="item__value">%expenseAmount%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                htmlInsertion = '<div class="item clearfix" id="expense-%expenseID%"><div class="item__description">%expenseDetail%</div><div class="right clearfix"><div class="item__value">%expenseAmount%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
                 // Replace changeable fields with user input values
                 updatedHTML = htmlInsertion.replace('%expenseID%', newItem.expenseID);
                 updatedHTML = updatedHTML.replace('%expenseDetail%', newItem.expenseDetail);
