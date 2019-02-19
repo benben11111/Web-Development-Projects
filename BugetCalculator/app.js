@@ -131,6 +131,12 @@ let userInterfaceHandler = (() => {
         details: '.details'
     };
 
+    let numberWithComma = (number) => {
+        var parts = number.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    }
+
     // Get user input value from UI
     return {
         getData: () => {
@@ -155,7 +161,7 @@ let userInterfaceHandler = (() => {
                 // Replace changeable fields with user input values
                 updatedHTML = htmlInsertion.replace('%incomeID%', newItem.incomeID);
                 updatedHTML = updatedHTML.replace('%incomeDetail%', newItem.incomeDetail);
-                updatedHTML = updatedHTML.replace('%incomeAmount%', newItem.incomeAmount);
+                updatedHTML = updatedHTML.replace('%incomeAmount%', `+ ${numberWithComma(newItem.incomeAmount)}`);
                 // Select the right HTML element 
                 htmlElementToInsert = querySelectorOptions.listOfIncome;
                 // Insert each newly added item at the end of the list but before the end of the income section
@@ -165,7 +171,7 @@ let userInterfaceHandler = (() => {
                 // Replace changeable fields with user input values
                 updatedHTML = htmlInsertion.replace('%expenseID%', newItem.expenseID);
                 updatedHTML = updatedHTML.replace('%expenseDetail%', newItem.expenseDetail);
-                updatedHTML = updatedHTML.replace('%expenseAmount%', newItem.expenseAmount);
+                updatedHTML = updatedHTML.replace('%expenseAmount%', `- ${numberWithComma(newItem.expenseAmount)}`);
                 // Select the right HTML element 
                 htmlElementToInsert = querySelectorOptions.listOfExpenses;
                 // Insert each newly added item at the end of the list but before the end of the income section
@@ -186,11 +192,18 @@ let userInterfaceHandler = (() => {
             let totalExpenses = budgetHandler.getTotalExpenses();
             let totalBalance = budgetHandler.updateBudget();
             // Update total income
-            document.querySelector(querySelectorOptions.moneyIn).textContent = totalIncome;
+            document.querySelector(querySelectorOptions.moneyIn).textContent = `+ ${numberWithComma(totalIncome)}`;
             // Update total expenses 
-            document.querySelector(querySelectorOptions.moneyOut).textContent = totalExpenses;
+            document.querySelector(querySelectorOptions.moneyOut).textContent = `- ${numberWithComma(totalExpenses)}`;
             // Update total available budget
-            document.querySelector(querySelectorOptions.totalBalance).textContent = totalBalance;
+            if(totalBalance > 0){
+                document.querySelector(querySelectorOptions.totalBalance).textContent = `+ ${numberWithComma(totalBalance) }`;
+            } else if(totalBalance < 0){
+                document.querySelector(querySelectorOptions.totalBalance).textContent = `${numberWithComma(totalBalance) }`;
+            } else {
+                document.querySelector(querySelectorOptions.totalBalance).textContent = `0`;
+            }
+            
         },
         //Delete an item on UI
         deleteItemOnUI: (idToDelete) => {
@@ -222,6 +235,7 @@ let appController = ((budgetData, ui) => {
             // Step 6: update balance on UI
             ui.updateBalanceOnUI();
             // Step 7: calculate and update the percentage of expense/income 
+            updatePercentageOfIncomeSpent();
 
         }
     };
@@ -235,8 +249,6 @@ let appController = ((budgetData, ui) => {
         // Parse the ID string into a number 
         transformedItemID[1] = parseInt(transformedItemID[1]);
         const [type, itemIdToDelete] = transformedItemID;
-        //console.log(type);
-        //console.log(itemIdToDelete);
         // Delete the item in the database 
         budgetData.deleteItemInDatabase(type, itemIdToDelete);
         // Delete the item on UI
@@ -244,6 +256,12 @@ let appController = ((budgetData, ui) => {
         // Update total income, total expenses, and total balance 
         budgetData.updateBudget();
         ui.updateBalanceOnUI();
+        // Update the percentage of income spent 
+        updatePercentageOfIncomeSpent();
+    };
+
+    let updatePercentageOfIncomeSpent = () => {
+        // Code later
     };
 
     return {
