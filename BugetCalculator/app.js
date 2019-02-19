@@ -191,6 +191,10 @@ let userInterfaceHandler = (() => {
             document.querySelector(querySelectorOptions.moneyOut).textContent = totalExpenses;
             // Update total available budget
             document.querySelector(querySelectorOptions.totalBalance).textContent = totalBalance;
+        },
+        //Delete an item on UI
+        deleteItemOnUI: (idToDelete) => {
+            document.getElementById(idToDelete).parentNode.removeChild(document.getElementById(idToDelete));
         }
     };
 
@@ -218,6 +222,7 @@ let appController = ((budgetData, ui) => {
             // Step 6: update balance on UI
             ui.updateBalanceOnUI();
             // Step 7: calculate and update the percentage of expense/income 
+
         }
     };
     // Create a function to delete an item whenever user wants
@@ -235,11 +240,10 @@ let appController = ((budgetData, ui) => {
         // Delete the item in the database 
         budgetData.deleteItemInDatabase(type, itemIdToDelete);
         // Delete the item on UI
-
+        ui.deleteItemOnUI(itemID);
         // Update total income, total expenses, and total balance 
-        
-        
-        
+        budgetData.updateBudget();
+        ui.updateBalanceOnUI();
     };
 
     return {
