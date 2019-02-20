@@ -1,7 +1,5 @@
 // Create a handler for the budget
 let budgetHandler = (() => {
-
-
     // Create a class for income 
     class Income {
         constructor(incomeID, incomeDetail, incomeAmount) {
@@ -55,14 +53,19 @@ let budgetHandler = (() => {
                 let total = 0;
                 expense.forEach(current => total += current.expenseAmount);
                 return totalExpenses = total;
-            
-
         }
-
     }
 
     let availableBalance = 0;
-    let percentageIncomeSpent = (totalExpenses / totalIncome) * 100;
+    let percentageIncomeSpent = 0;
+
+    let calculateTotalPercentageIncomeSpent = function(){
+        let incomeEarned = calculateTotal('income');
+        let expensesIncurred = calculateTotal('expense');
+        percentageIncomeSpent = (expensesIncurred / incomeEarned) * 100;
+        return percentageIncomeSpent;
+    }
+
     return {
         addItem: function (type, detail, amount) {
             if (type === 'income') { // Add an income item
@@ -118,16 +121,33 @@ let budgetHandler = (() => {
             expense.forEach(current => current.calculatePercentages(totalIncome));
         },
         getEachPercentage: () => {
-            let percentages = expense.map(current => current.getPercentage());
-            return percentages;
+            let allPercentages = expense.map(current => current.getPercentage());
+            return allPercentages;
         },
+        getTotalPercentageIncomeSpent: () => {
+            return totalIncomeSpent = Math.round(calculateTotalPercentageIncomeSpent());
+        },
+        
+            // let totalPercentage;
+            // percentages.forEach(current => totalPercentage + current);
+            // return totalPercentage;
+            // // let totalPercentageArray = () => {
+            // //     let percentages = expense.map(current => current.calculatePercentages(totalIncome));
+            // //     return percentages;
+            // // }
+            // // let percentageArray = totalPercentageArray();
+            // // percentageArray.forEach(current => {
+            // //     totalPercentage = totalPercentage + current;
+            // //     return totalPercentage;
+            // // });
+        
         testing: function () {
-            console.log(income);
-            
+            //console.log(income);
             //console.log(expense);
-            console.log(totalIncome);
+            //console.log(totalIncome);
             //console.log(totalExpenses);
             //console.log(availableBalance);
+            //console.log(percentageIncomeSpent);
         }
     }
 
@@ -151,7 +171,8 @@ let userInterfaceHandler = (() => {
         moneyOut: '.money-out',
         totalBalance: '.total-balance',
         details: '.details',
-        percentage: '.item__percentage'
+        percentage: '.item__percentage',
+        totalPercentage: '.total-percentage'
     };
 
     // Trim number format with comma for numbers with greater than 3 digits
@@ -233,10 +254,23 @@ let userInterfaceHandler = (() => {
             document.getElementById(idToDelete).parentNode.removeChild(document.getElementById(idToDelete));
         },
         // Update percentages on UI
-        updatePercentagesOnUI: percentage => {
-            let percentagesToUpdate = document.querySelectorAll(querySelectorOptions.percentage);
-            let percentagesArray = Array.from(percentagesToUpdate);
-            percentagesArray.forEach(current => current.textContent = `${percentage}%`);
+        updatePercentagesOnUI: percentages => {
+            let percentageLabelsToUpdate = document.querySelectorAll(querySelectorOptions.percentage);
+
+            let forEachFunction = (nodeList, callback) => {
+                for (let i = 0; i < nodeList.length; i++){
+                    callback(nodeList[i], i);
+                }
+            }
+
+            forEachFunction(percentageLabelsToUpdate, function(cur, index){
+                cur.textContent = percentages[index] + '%';
+            });
+
+        },
+        // Update total percentage on UI
+        updateTotalPercentageOnUI: (totalPercentage) => {
+            document.querySelector(querySelectorOptions.totalPercentage).textContent = `${totalPercentage}%`;  
         }
     };
 
@@ -294,10 +328,14 @@ let appController = ((budgetData, ui) => {
         budgetData.calculatePercentage();
         // Get calculated percentages
         let percentages = budgetData.getEachPercentage();
-        //console.log(percentages);
+        console.log(percentages);
         // Update percentages on UI
         ui.updatePercentagesOnUI(percentages);
-        
+        //percentages.forEach(current => ui.updatePercentagesOnUI(current));
+        // calculate total percentage
+        let totalPercentage = budgetData.getTotalPercentageIncomeSpent();
+        // Update total percentage on UI
+        ui.updateTotalPercentageOnUI(totalPercentage);
     };
 
     return {
