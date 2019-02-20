@@ -9,6 +9,7 @@ let budgetHandler = (() => {
             this.incomeDetail = incomeDetail;
             this.incomeAmount = incomeAmount;
         }
+
     }
 
     // Create a class for expenses
@@ -17,8 +18,21 @@ let budgetHandler = (() => {
             this.expenseID = expenseID;
             this.expenseDetail = expenseDetail;
             this.expenseAmount = expenseAmount;
+            this.percentage = -1; // Each expense has an expense property
         }
 
+        // Create a function to calculate expense over total income for each expense item
+        calculatePercentages = totalIncome => {
+            if (totalIncome > 0){
+                this.percentage = (this.expenseAmount / totalIncome) * 100;
+            } else {
+                this.percentage = -1;
+            }
+        }
+        // Get the calculated percentage for each expense item
+        getPercentage = () => {
+            return this.percentage;
+        }
     }
     // Store income and expenses into arrays
     let income = [];
@@ -100,10 +114,18 @@ let budgetHandler = (() => {
                 expense.splice(indexToDelete, 1);
             }
         },
+        calculatePercentage: () => {
+            expense.forEach(current => current.calculatePercentages(totalIncome));
+        },
+        getEachPercentage: () => {
+            let percentages = expense.map(current => current.getPercentage());
+            return percentages;
+        },
         testing: function () {
             console.log(income);
+            
             //console.log(expense);
-            //console.log(totalIncome);
+            console.log(totalIncome);
             //console.log(totalExpenses);
             //console.log(availableBalance);
         }
@@ -128,9 +150,11 @@ let userInterfaceHandler = (() => {
         moneyIn: '.money-in',
         moneyOut: '.money-out',
         totalBalance: '.total-balance',
-        details: '.details'
+        details: '.details',
+        percentage: '.item__percentage'
     };
 
+    // Trim number format with comma for numbers with greater than 3 digits
     let numberWithComma = (number) => {
         var parts = number.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -167,7 +191,7 @@ let userInterfaceHandler = (() => {
                 // Insert each newly added item at the end of the list but before the end of the income section
                 document.querySelector(htmlElementToInsert).insertAdjacentHTML('beforeend', updatedHTML);
             } else if (type === 'expense') {
-                htmlInsertion = '<div class="item clearfix" id="expense-%expenseID%"><div class="item__description">%expenseDetail%</div><div class="right clearfix"><div class="item__value">%expenseAmount%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                htmlInsertion = '<div class="item clearfix" id="expense-%expenseID%"><div class="item__description">%expenseDetail%</div><div class="right clearfix"><div class="item__value">%expenseAmount%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
                 // Replace changeable fields with user input values
                 updatedHTML = htmlInsertion.replace('%expenseID%', newItem.expenseID);
                 updatedHTML = updatedHTML.replace('%expenseDetail%', newItem.expenseDetail);
@@ -203,11 +227,16 @@ let userInterfaceHandler = (() => {
             } else {
                 document.querySelector(querySelectorOptions.totalBalance).textContent = `0`;
             }
-            
         },
         //Delete an item on UI
         deleteItemOnUI: (idToDelete) => {
             document.getElementById(idToDelete).parentNode.removeChild(document.getElementById(idToDelete));
+        },
+        // Update percentages on UI
+        updatePercentagesOnUI: percentage => {
+            let percentagesToUpdate = document.querySelectorAll(querySelectorOptions.percentage);
+            let percentagesArray = Array.from(percentagesToUpdate);
+            percentagesArray.forEach(current => current.textContent = `${percentage}%`);
         }
     };
 
@@ -247,7 +276,7 @@ let appController = ((budgetData, ui) => {
         // Parse the retrieved item ID 
         const transformedItemID = itemID.split('-');
         // Parse the ID string into a number 
-        transformedItemID[1] = parseInt(transformedItemID[1]);
+        transformedItemID[1] = parseFloat(transformedItemID[1]);
         const [type, itemIdToDelete] = transformedItemID;
         // Delete the item in the database 
         budgetData.deleteItemInDatabase(type, itemIdToDelete);
@@ -261,7 +290,14 @@ let appController = ((budgetData, ui) => {
     };
 
     let updatePercentageOfIncomeSpent = () => {
-        // Code later
+        // Calculate percentages
+        budgetData.calculatePercentage();
+        // Get calculated percentages
+        let percentages = budgetData.getEachPercentage();
+        //console.log(percentages);
+        // Update percentages on UI
+        ui.updatePercentagesOnUI(percentages);
+        
     };
 
     return {
