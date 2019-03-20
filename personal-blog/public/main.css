@@ -1,0 +1,165 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* #header */
+/* header{
+    background: url(images/banner.jpg) no-repeat center /cover; 
+    height: 100vh;
+} */
+
+/* #navbar */
+.navbar-menu {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+  padding: 30px;
+}
+
+.menu-item {
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: color 0.5s;
+}
+
+.menu-item:hover {
+  color: black;
+}
+
+.line1,
+.line2,
+.line3 {
+  width: 23px;
+  height: 3px;
+  margin: 5px;
+}
+/* #endnavbar*/
+
+/* #banner */
+.banner {
+  position: absolute;
+  top: 50%;
+  left: 62%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+
+.banner-heading {
+  animation-name: banner-animation;
+  animation-duration: 2s;
+  color: black;
+}
+
+.banner-paragraph {
+  animation-name: banner-animation;
+  animation-duration: 2s;
+  animation-delay: 0.5s;
+  animation-fill-mode: backwards;
+  color: black;
+  font-size: 30px;
+}
+
+@keyframes banner-animation {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* #endbanner */
+
+/* #endheader */
+
+/* #backgroundVideo*/
+/* .video-container {
+  position: relative;
+} */
+
+.video-container {
+  top: 0;
+  left: 0;
+  max-height: 655px;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.7;
+  overflow: hidden;
+}
+
+.bg-video {
+  object-fit: cover;
+}
+/* #endBackgroundVideo*/
+
+/* #experience */
+/* #myExperienceHeading */
+.underline {
+  width: 150px;
+  border: 3px solid black;
+  margin: auto;
+}
+/* #endMyExperienceHeading */
+
+@keyframes show-company-logo {
+  0% {
+    transform: translateX(-120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes show-experience-text {
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.show-deloitte-logo {
+  animation-name: show-company-logo;
+  animation-duration: 2s;
+}
+
+.show-deloitte-text {
+  animation-name: show-experience-text;
+  animation-duration: 2s;
+}
+
+.show-un-logo {
+  animation-name: show-company-logo;
+  animation-duration: 2s;
+}
+
+.show-un-text {
+  animation-name: show-experience-text;
+  animation-duration: 2s;
+}
+.show-rbc-logo {
+  animation-name: show-company-logo;
+  animation-duration: 2s;
+}
+
+.show-rbc-text {
+  animation-name: show-experience-text;
+  animation-duration: 2s;
+}
+
+.show-pwc-logo {
+  animation-name: show-company-logo;
+  animation-duration: 2s;
+}
+
+.show-pwc-text {
+  animation-name: show-experience-text;
+  animation-duration: 2s;
+}
+
+/* #endExperience */

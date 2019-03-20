@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Yi's Personal Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+      integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  </head>
+
+    <!-- #header -->
+    <section>
+        <header>
+          <!-- #navbar -->
+          <nav class="navbar navbar-expand-lg fixed-top navbar-menu">
+            <a href="/" class="navbar-brand text-dark text-uppercase"
+              ><span class="h3 font-weight-bold text-light">Yi's Blog</span></a
+            >
+            <button
+              type="button"
+              class="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#myNavbar"
+            >
+              <div class="bg-light line1"></div>
+              <div class="bg-light line2"></div>
+              <div class="bg-light line3"></div>
+            </button>
+            <div
+              class="collapse navbar-collapse justify-content-end text-uppercase font-weight-bold"
+              id="myNavbar"
+            >
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a href="/" class="nav-link menu-item m-2 text-light h4"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a href="/blogs" class="nav-link menu-item m-2 text-light h4"
+                    >Blog</a
+                  >
+                </li>
+                <% if(!activeUser) {%>
+                <li class="nav-item">
+                  <a href="/login" class="nav-link menu-item m-2 text-light h4"
+                    >Login</a
+                  >
+                </li>
+              <%} else {%>
+                <li class="nav-item">
+                    <a href="/addNewBlog" class="nav-link menu-item m-2 text-light h4"
+                      >Add New Blog</a
+                    >
+                  </li>
+                <li class="nav-item">
+                  <a href="/signup" class="nav-link menu-item m-2 text-light h4"
+                    >Sign Up</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a href="/logout" class="nav-link menu-item m-2 text-light h4"
+                    >Log out</a
+                  >
+                </li>
+                <% }%>
+                <li class="nav-item">
+                  <a href="/contact" class="nav-link menu-item m-2 text-light h4"
+                    >Contact</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- #endnavbar -->
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+    integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"
+  ></script>
+  <script src="main.js"></script>
+</body>
+</html>
+
+
